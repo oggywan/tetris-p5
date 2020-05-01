@@ -1,5 +1,5 @@
 function loadAllSounds() {
-  console.log('loadAllSounds');
+  masterVolume(0.5);
   soundFormats('mp3', 'ogg');
 
   this.leftRightSound = loadSound('sounds/SFX_PieceMoveLR.ogg');
@@ -16,27 +16,27 @@ function loadAllSounds() {
   this.musicSound = loadSound('sounds/tetris-gameboy-02.mp3');
   this.levelUpSound = loadSound('sounds/SFX_LevelUp.ogg');
 
-  this.leftRightSound.setVolume(1);
-  this.rotationSound.setVolume(0.5);
-  this.rotationFailSound.setVolume(1);
-  this.touchDownSound.setVolume(1);
+  this.toogleSound(true);
+}
 
-  this.clearLineSingleSound.setVolume(1);
-  this.clearLineDoubleSound.setVolume(1);
-  this.clearLineTripleSound.setVolume(1);
-  this.clearLineSpecialSound.setVolume(1);
+function toogleSound(soundOn) {
+  this.leftRightSound.setVolume(soundOn ? 1 : 0);
+  this.rotationSound.setVolume(soundOn ? 0.5 : 0);
+  this.rotationFailSound.setVolume(soundOn ? 1 : 0);
+  this.touchDownSound.setVolume(soundOn ? 1 : 0);
 
-  this.gameOverSound.setVolume(0.2);
-  this.musicSound.setVolume(0.1);
-  this.levelUpSound.setVolume(0.6);
+  this.clearLineSingleSound.setVolume(soundOn ? 1 : 0);
+  this.clearLineDoubleSound.setVolume(soundOn ? 1 : 0);
+  this.clearLineTripleSound.setVolume(soundOn ? 1 : 0);
+  this.clearLineSpecialSound.setVolume(soundOn ? 1 : 0);
+
+  this.gameOverSound.setVolume(soundOn ? 0.2 : 0);
+  this.musicSound.setVolume(soundOn ? 0.1 : 0);
+  this.levelUpSound.setVolume(soundOn ? 0.6 : 0);
 }
 
 function resetAndPlay(sound) {
-  console.log('resetAndPlay: ' + sound);
-  if (sound.currentTime > 0) {
-    sound.currentTime = 0;
-  }
-  console.log('ok');
+  sound.stop();
   sound.play();
 }
 
@@ -54,15 +54,13 @@ function soundRotationFail() {
 
 function soundGameStart() {
   this.gameOverSound.pause();
-  this.gameOverSound.currentTime = 0;
   this.musicSound.playbackRate = 1;
   resetAndPlay(this.musicSound);
 }
 
 function soundGameOver() {
-  this.gameOverSound.play();
   this.musicSound.pause();
-  this.musicSound.currentTime = 0;
+  resetAndPlay(this.gameOverSound);
 }
 
 function soundTouchDown() {
@@ -70,7 +68,7 @@ function soundTouchDown() {
 }
 
 function soundLevelUp() {
-  this.musicSound.playbackRate += 0.05;
+  this.musicSound.rate(1 + (level - 1) * 0.04);
   this.levelUpSound.play();
 }
 

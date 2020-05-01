@@ -18,6 +18,7 @@ let textColor;
 let gameOver = false;
 let gameOn = false;
 let help = false;
+let soundOn = true;
 
 function preload() {
   loadAllSounds();
@@ -42,7 +43,7 @@ function initialize() {
 }
 
 function draw() {
-  background(60);
+  background(0);
 
   if (grid != null) {
     grid.drawGrid();
@@ -61,6 +62,7 @@ function draw() {
     fill(255, 60);
     rect(110, 195, 240, 2 * txtSize, 3);
     fill(textColor);
+    textSize(20);
     text('Game Over', 120, 220);
   }
   if (!gameOn) {
@@ -68,8 +70,15 @@ function draw() {
     fill(255, 60);
     rect(110, 250, 255, 2 * txtSize, 3);
     fill(textColor);
-    text("press 'p' to start playing!", 120, 280);
+    textSize(20);
+    text('click to start playing!', 120, 280);
   }
+  noStroke();
+  fill(255, 60);
+  rect(160, 445, 200, 30, 3);
+  fill(textColor);
+  textSize(12);
+  text(`press "m" to ${soundOn ? 'mute' : 'unmute'} the sound`, 180, 465);
 }
 
 function goToNextPiece() {
@@ -86,6 +95,15 @@ function goToNextLevel() {
   soundLevelUp();
 }
 
+function mousePressed() {
+  if (!gameOn) {
+    initialize();
+    soundGameStart();
+    gameOver = false;
+    gameOn = true;
+  }
+}
+
 function keyPressed() {
   switch (keyCode) {
     case LEFT_ARROW:
@@ -93,18 +111,15 @@ function keyPressed() {
     case DOWN_ARROW:
     case UP_ARROW:
     case SHIFT:
-      piece.inputKey(keyCode);
-      break;
-    case 80: // p
-      if (!gameOn) {
-        initialize();
-        soundGameStart();
-        gameOver = false;
-        gameOn = true;
+      if (!gameOver) {
+        piece.inputKey(keyCode);
       }
       break;
+    case 80: // p
+      break;
     case 77: // m
-      muteSound();
+      soundOn = !soundOn;
+      toogleSound(soundOn);
       break;
     case 72: // h
       help = !help;

@@ -37,15 +37,15 @@ class Piece {
         this.y++;
       }
       this.y--;
-      pushMatrix();
+      push();
       translate(160, 40);
       translate(this.x * q, this.y * q);
       fill(250, 20);
       for (let i = 0; i < 4; i++) {
         rect(this.pos[rot][i][0] * q, this.pos[rot][i][1] * q, 20, 20);
       }
-      popMatrix();
-      y = prevY;
+      pop();
+      this.y = prevY;
     }
   }
 
