@@ -42,11 +42,11 @@ class Grid {
       } else {
         gameOn = false;
         gameOver = true;
-        // soundGameOver();
+        soundGameOver();
         return;
       }
     }
-    // soundTouchDown();
+    soundTouchDown();
     score.addPiecePoints();
     this.checkFullLines();
     goToNextPiece();
@@ -78,7 +78,7 @@ class Grid {
       }
     }
     this.deleteLines(nb);
-    // soundClearLines(nb);
+    soundClearLines(nb);
   }
 
   deleteLines(nb) {

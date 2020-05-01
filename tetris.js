@@ -19,6 +19,10 @@ let gameOver = false;
 let gameOn = false;
 let help = false;
 
+function preload() {
+  loadAllSounds();
+}
+
 function setup() {
   canvas = createCanvas(600, 480);
   textSize(20);
@@ -94,7 +98,7 @@ function keyPressed() {
     case 80: // p
       if (!gameOn) {
         initialize();
-        // soundGameStart();
+        soundGameStart();
         gameOver = false;
         gameOn = true;
       }
