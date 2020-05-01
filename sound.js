@@ -1,42 +1,40 @@
 function loadAllSounds() {
-  masterVolume(0.5);
-  soundFormats('mp3', 'ogg');
+  this.leftRightSound = new Audio('sounds/SFX_PieceMoveLR.ogg');
+  this.rotationSound = new Audio('sounds/SFX_PieceRotateLR.ogg');
+  this.rotationFailSound = new Audio('sounds/SFX_PieceRotateFail.ogg');
+  this.touchDownSound = new Audio('sounds/SFX_PieceTouchDown.ogg');
 
-  this.leftRightSound = loadSound('sounds/SFX_PieceMoveLR.ogg');
-  this.rotationSound = loadSound('sounds/SFX_PieceRotateLR.ogg');
-  this.rotationFailSound = loadSound('sounds/SFX_PieceRotateFail.ogg');
-  this.touchDownSound = loadSound('sounds/SFX_PieceTouchDown.ogg');
+  this.clearLineSingleSound = new Audio('sounds/SFX_LineClearSingle.ogg');
+  this.clearLineDoubleSound = new Audio('sounds/SFX_LineClearDouble.ogg');
+  this.clearLineTripleSound = new Audio('sounds/SFX_LineClearTriple.ogg');
+  this.clearLineSpecialSound = new Audio('sounds/SFX_SpecialTetris.ogg');
 
-  this.clearLineSingleSound = loadSound('sounds/SFX_LineClearSingle.ogg');
-  this.clearLineDoubleSound = loadSound('sounds/SFX_LineClearDouble.ogg');
-  this.clearLineTripleSound = loadSound('sounds/SFX_LineClearTriple.ogg');
-  this.clearLineSpecialSound = loadSound('sounds/SFX_SpecialTetris.ogg');
-
-  this.gameOverSound = loadSound('sounds/GameOver.mp3');
-  this.musicSound = loadSound('sounds/tetris-gameboy-02.mp3');
-  this.levelUpSound = loadSound('sounds/SFX_LevelUp.ogg');
+  this.gameOverSound = new Audio('sounds/GameOver.mp3');
+  this.musicSound = new Audio('sounds/tetris-gameboy-02.mp3');
+  this.musicSound.loop = true;
+  this.levelUpSound = new Audio('sounds/SFX_LevelUp.ogg');
 
   this.toogleSound(true);
 }
 
 function toogleSound(soundOn) {
-  this.leftRightSound.setVolume(soundOn ? 1 : 0);
-  this.rotationSound.setVolume(soundOn ? 0.5 : 0);
-  this.rotationFailSound.setVolume(soundOn ? 1 : 0);
-  this.touchDownSound.setVolume(soundOn ? 1 : 0);
+  this.leftRightSound.volume = soundOn ? 1 : 0;
+  this.rotationSound.volume = soundOn ? 0.5 : 0;
+  this.rotationFailSound.volume = soundOn ? 1 : 0;
+  this.touchDownSound.volume = soundOn ? 1 : 0;
 
-  this.clearLineSingleSound.setVolume(soundOn ? 1 : 0);
-  this.clearLineDoubleSound.setVolume(soundOn ? 1 : 0);
-  this.clearLineTripleSound.setVolume(soundOn ? 1 : 0);
-  this.clearLineSpecialSound.setVolume(soundOn ? 1 : 0);
+  this.clearLineSingleSound.volume = soundOn ? 1 : 0;
+  this.clearLineDoubleSound.volume = soundOn ? 1 : 0;
+  this.clearLineTripleSound.volume = soundOn ? 1 : 0;
+  this.clearLineSpecialSound.volume = soundOn ? 1 : 0;
 
-  this.gameOverSound.setVolume(soundOn ? 0.2 : 0);
-  this.musicSound.setVolume(soundOn ? 0.1 : 0);
-  this.levelUpSound.setVolume(soundOn ? 0.6 : 0);
+  this.gameOverSound.volume = soundOn ? 0.2 : 0;
+  this.musicSound.volume = soundOn ? 0.1 : 0;
+  this.levelUpSound.volume = soundOn ? 0.6 : 0;
 }
 
 function resetAndPlay(sound) {
-  sound.stop();
+  sound.currentTime = 0;
   sound.play();
 }
 
@@ -68,7 +66,7 @@ function soundTouchDown() {
 }
 
 function soundLevelUp() {
-  this.musicSound.rate(1 + (level - 1) * 0.04);
+  musicSound.playbackRate += 0.03;
   this.levelUpSound.play();
 }
 

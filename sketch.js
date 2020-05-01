@@ -91,7 +91,7 @@ function goToNextPiece() {
 function goToNextLevel() {
   score.addLevelPoints();
   level = 1 + int(nbLines / 10);
-  dt *= 0.8;
+  dt *= 0.9;
   soundLevelUp();
 }
 
@@ -104,13 +104,14 @@ function mousePressed() {
   }
 }
 
-function keyPressed() {
+function keyPressed(e) {
   switch (keyCode) {
     case LEFT_ARROW:
     case RIGHT_ARROW:
     case DOWN_ARROW:
     case UP_ARROW:
     case SHIFT:
+      e.preventDefault();
       if (!gameOver) {
         piece.inputKey(keyCode);
       }
