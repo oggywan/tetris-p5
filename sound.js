@@ -50,10 +50,18 @@ function soundRotationFail() {
   resetAndPlay(this.rotationFailSound);
 }
 
-function soundGameStart() {
+function soundGameStart(fromStart = true) {
   this.gameOverSound.pause();
-  this.musicSound.playbackRate = 1;
-  resetAndPlay(this.musicSound);
+  if (fromStart) {
+    this.musicSound.playbackRate = 1;
+    resetAndPlay(this.musicSound);
+  } else {
+    this.musicSound.play();
+  }
+}
+
+function soundGamePause() {
+  this.musicSound.pause();
 }
 
 function soundGameOver() {

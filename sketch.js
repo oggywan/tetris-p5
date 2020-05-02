@@ -19,6 +19,7 @@ let gameOver = false;
 let gameOn = false;
 let help = false;
 let soundOn = true;
+let paused = false;
 
 function preload() {
   loadAllSounds();
@@ -43,6 +44,10 @@ function initialize() {
 }
 
 function draw() {
+  if (paused) {
+    return;
+  }
+
   background(0);
 
   if (grid != null) {
@@ -101,6 +106,13 @@ function mousePressed() {
     soundGameStart();
     gameOver = false;
     gameOn = true;
+  } else {
+    paused = !paused;
+    if (paused) {
+      soundGamePause();
+    } else {
+      soundGameStart(false);
+    }
   }
 }
 
