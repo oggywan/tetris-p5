@@ -19,7 +19,7 @@ let gameOver = false;
 let gameOn = false;
 let help = false;
 let soundOn = true;
-let paused = false;
+let isPaused = false;
 
 function preload() {
   loadAllSounds();
@@ -29,6 +29,8 @@ function setup() {
   canvas = createCanvas(600, 480);
   textSize(20);
   textColor = color(34, 230, 190);
+
+  window.addEventListener('keydown', (e) => e.preventDefault());
 }
 
 function initialize() {
@@ -44,7 +46,7 @@ function initialize() {
 }
 
 function draw() {
-  if (paused) {
+  if (isPaused) {
     return;
   }
 
@@ -107,8 +109,8 @@ function mousePressed() {
     gameOver = false;
     gameOn = true;
   } else {
-    paused = !paused;
-    if (paused) {
+    isPaused = !isPaused;
+    if (isPaused) {
       soundGamePause();
     } else {
       soundGameStart(false);
@@ -124,7 +126,7 @@ function keyPressed(e) {
     case UP_ARROW:
     case SHIFT:
       e.preventDefault();
-      if (!gameOver) {
+      if (!gameOver && piece) {
         piece.inputKey(keyCode);
       }
       break;

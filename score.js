@@ -1,6 +1,5 @@
 class Score {
   constructor() {
-    console.log('score constructor');
     this.points = 0;
   }
 
